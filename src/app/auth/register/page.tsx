@@ -180,7 +180,7 @@ export default function RegisterPage() {
       </div>
 
       {/* Right Side - Form Section */}
-      <div className="flex-1 flex items-center justify-center bg-white p-6 lg:p-12 overflow-y-auto">
+      <div className="flex-1 flex items-center justify-center bg-white p-6 lg:p-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

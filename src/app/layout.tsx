@@ -15,8 +15,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "JobSync - Verified Workforce Platform | Trusted Credentials & AI Career Tools",
-  description: "JobSync unifies verified candidates, employers, and institutions in one secure ecosystem for digital credentials, job matching, and workforce compliance.",
+  title:
+    "JobSync - Verified Workforce Platform | Trusted Credentials & AI Career Tools",
+  description:
+    "JobSync unifies verified candidates, employers, and institutions in one secure ecosystem for digital credentials, job matching, and workforce compliance.",
   keywords: `
   "verified workforce",
   "credential verification software",
@@ -24,8 +26,7 @@ export const metadata: Metadata = {
   "compliance platform",
   "AI job assistant",
   "white-label HR software",
-  "verified job seekers Australia",`
-
+  "verified job seekers Australia",`,
 };
 
 export default function RootLayout({
@@ -38,9 +39,24 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ConditionalNavbar/>
+        <ConditionalNavbar />
         {children}
-        <ConditionalFooter/>
+        <ConditionalFooter />
+        <iframe
+          src="https://jobsync.gcucsstudent.site/"
+          style={{
+            position: "fixed",
+            bottom: 20,
+            right: 20,
+            width: 420,
+            height: 550,
+            border: "none",
+            borderRadius: 20,
+            overflow: "hidden",
+            zIndex: 9999,
+          }}
+          allow="microphone; camera; autoplay"
+        ></iframe>
       </body>
     </html>
   );

@@ -20,24 +20,28 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-interface Column {
+interface Column<T extends Record<string, unknown> = Record<string, unknown>> {
   key: string;
   label: string;
-  render?: (value: unknown, row: unknown) => React.ReactNode;
+  render?: (value: unknown, row: T) => React.ReactNode;
 }
 
-interface DataTableProps {
-  data: unknown[];
-  columns: Column[];
+interface DataTableProps<
+  T extends Record<string, unknown> = Record<string, unknown>
+> {
+  data: T[];
+  columns: Column<T>[];
   searchable?: boolean;
   searchPlaceholder?: string;
-  onEdit?: (row: unknown) => void;
-  onDelete?: (row: unknown) => void;
+  onEdit?: (row: T) => void;
+  onDelete?: (row: T) => void;
   actions?: boolean;
   editLabel?: string;
 }
 
-export default function DataTable({
+export default function DataTable<
+  T extends Record<string, unknown> = Record<string, unknown>
+>({
   data,
   columns,
   searchable = true,
@@ -46,7 +50,7 @@ export default function DataTable({
   onDelete,
   actions = true,
   editLabel = "Edit",
-}: DataTableProps) {
+}: DataTableProps<T>) {
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredData = searchable
@@ -99,7 +103,7 @@ export default function DataTable({
             ) : (
               filteredData.map((row, index) => (
                 <TableRow
-                  key={row.id || index}
+                  key={String(row.id ?? index)}
                   className="transition-opacity duration-300"
                   style={{ animationDelay: `${index * 0.05}s` }}
                 >
@@ -107,7 +111,7 @@ export default function DataTable({
                     <TableCell key={column.key}>
                       {column.render
                         ? column.render(row[column.key], row)
-                        : row[column.key]}
+                        : String(row[column.key])}
                     </TableCell>
                   ))}
                   {actions && (

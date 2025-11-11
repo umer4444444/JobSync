@@ -90,7 +90,14 @@ const applicationsData = [
   },
 ];
 
-const statusFilters = ["All", "Pending", "Under Review", "Shortlisted", "Rejected", "Accepted"];
+const statusFilters = [
+  "All",
+  "Pending",
+  "Under Review",
+  "Shortlisted",
+  "Rejected",
+  "Accepted",
+];
 
 export default function ApplicationsPage() {
   const [selectedFilter, setSelectedFilter] = useState("All");
@@ -106,7 +113,10 @@ export default function ApplicationsPage() {
   };
 
   const getStatusBadgeVariant = (status: string) => {
-    const variants: Record<string, "default" | "secondary" | "outline" | "destructive"> = {
+    const variants: Record<
+      string,
+      "default" | "secondary" | "outline" | "destructive"
+    > = {
       Pending: "secondary",
       "Under Review": "default",
       Shortlisted: "default",
@@ -175,7 +185,9 @@ export default function ApplicationsPage() {
 
       {/* Applications Table */}
       <DashboardCard
-        title={`${filteredData.length} Application${filteredData.length !== 1 ? "s" : ""}`}
+        title={`${filteredData.length} Application${
+          filteredData.length !== 1 ? "s" : ""
+        }`}
         description="Your job application history"
       >
         <DataTable
@@ -186,15 +198,19 @@ export default function ApplicationsPage() {
               label: "Job Title",
               render: (value, row) => (
                 <div>
-                  <div className="font-medium">{value}</div>
-                  <div className="text-xs text-muted-foreground">{row.location}</div>
+                  <div className="font-medium">{String(value)}</div>
+                  <div className="text-xs text-muted-foreground">
+                    {(row as (typeof applicationsData)[number]).location}
+                  </div>
                 </div>
               ),
             },
             {
               key: "company",
               label: "Company",
-              render: (value) => <span className="font-medium">{value}</span>,
+              render: (value) => (
+                <span className="font-medium">{String(value)}</span>
+              ),
             },
             {
               key: "appliedDate",
@@ -206,7 +222,7 @@ export default function ApplicationsPage() {
               label: "Status",
               render: (value) => (
                 <Badge variant={getStatusBadgeVariant(value as string)}>
-                  {value}
+                  {String(value)}
                 </Badge>
               ),
             },
@@ -232,4 +248,3 @@ export default function ApplicationsPage() {
     </div>
   );
 }
-
