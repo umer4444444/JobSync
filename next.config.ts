@@ -1,12 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Generate a fully static export (creates /out folder on build)
-  output: "export",
+  // REMOVE this line to enable API routes and server functionality
+  // output: "export",
 
-  // Disable Next.js image optimization since static export doesn’t support it
+  // Keep image optimization enabled
   images: {
-    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
@@ -23,9 +22,10 @@ const nextConfig: NextConfig = {
     ],
   },
 
-  // Optional but recommended for clean static builds
+  // Optional configurations
   reactStrictMode: true,
-  trailingSlash: true, // ensures all routes export cleanly as /path/index.html
+  // Remove trailingSlash or set to false for dynamic routes
+  trailingSlash: false,
 };
 
 export default nextConfig;

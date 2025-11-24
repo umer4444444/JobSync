@@ -1,18 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useState  } from "react"
 import DashboardCard from "@/components/admin/DashboardCard";
 import DataTable from "@/components/admin/DataTable";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { FileText, Eye, X } from "lucide-react";
-import { motion } from "framer-motion";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import React from "react"
+import { Badge } from "@/components/ui/badge"
+import {motion} from "framer-motion"
+import { Button } from "@/components/ui/button"
+
+import { FileText } from "lucide-react"
+
+import { 
+ } from "@/components/ui/dropdown-menu"
 
 // Mock applications data
 const applicationsData = [

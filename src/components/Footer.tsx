@@ -209,7 +209,7 @@ export default function Footer() {
               <MapPin className="h-5 w-5 text-white" />
             </div>
             <div>
-              <p className="font-semibold">Australian Office</p>
+              <p className="font-semibold">Level 28, 140 St Georges Tce Perth, Western Australia 6000</p>
               <p className="text-gray-300 text-sm">Perth</p>
             </div>
           </div>

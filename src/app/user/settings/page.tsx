@@ -1,28 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useState  } from "react"
 import DashboardCard from "@/components/admin/DashboardCard";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import { Separator } from "@/components/ui/separator";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Save, User, Bell, Shield, Moon, Sun, Globe } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"
+import { Shield } from "lucide-react"
+import { Button  } from "@/components/ui/button"  
+
+import { Input  } from "@/components/ui/input"
+import { Label  } from "@/components/ui/label"
+import { Switch  } from "@/components/ui/switch"
+import { Separator  } from "@/components/ui/separator"
+import { Select, 
+  SelectContent, 
+  SelectItem, 
+  SelectTrigger, 
+  SelectValue, 
+ } from "@/components/ui/select"
+import { Card, 
+  CardContent, 
+  CardDescription, 
+  CardHeader, 
+  CardTitle, 
+ } from "@/components/ui/card"
+import { Save,  Moon,  Sun } from "lucide-react"
+
 
 export default function SettingsPage() {
   const [darkMode, setDarkMode] = useState(false);

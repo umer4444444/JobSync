@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState,  useEffect  } from "react"
 import Sidebar from "@/components/dashboard/Sidebar";
 import Navbar from "@/components/dashboard/Navbar";
+
 import { motion } from "framer-motion";
 
 const MOBILE_BREAKPOINT = 768; // md breakpoint in Tailwind
@@ -53,16 +54,7 @@ export default function DashboardLayout({
     }
   }, [isSidebarOpen]);
 
-  const handleToggle = () => {
-    const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
-
-    // Prevent opening on mobile
-    if (isMobile && !isSidebarOpen) {
-      return;
-    }
-
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+ 
 
   return (
     <div className="flex h-screen overflow-hidden bg-muted/30">

@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -13,16 +14,16 @@ import { Eye, EyeOff, User, Building, ArrowRight, CheckCircle, MapPin, Star } fr
 
 export default function SignUpPage() {
   const [form, setForm] = useState({
-    firstname: "",
-    lastname: "",
+    name: "", // Changed from firstname + lastname to match user model
     email: "",
     password: "",
     confirmPassword: "",
-    role: "job_seeker", // default
+    role: "user", // Changed to match user model ("user" or "admin")
   })
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -34,23 +35,31 @@ export default function SignUpPage() {
 
     setLoading(true)
     try {
-      const res = await fetch("/api/auth/signup", {
+      const res = await fetch("/api/auth/register", { // Changed endpoint to match our API
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          password: form.password,
+          role: form.role
+        }),
       })
 
       const data = await res.json()
       if (res.ok) {
-        alert("Account created! Please login.")
+        alert("Account created successfully! Please sign in.")
+        router.push("/signin") // Redirect to signin page
       } else {
         alert(data.error || "Something went wrong")
       }
+    } catch (error: unknown) {
+      console.error("Signup error:", error)
+      alert("Registration failed. Please try again.")
     } finally {
       setLoading(false)
     }
   }
-
   const passwordStrength = {
     length: form.password.length >= 8,
     uppercase: /[A-Z]/.test(form.password),
@@ -94,24 +103,22 @@ export default function SignUpPage() {
                   <div className="grid grid-cols-2 gap-3 p-1 bg-gray-100 rounded-xl">
                     <button
                       type="button"
-                      onClick={() => setForm({ ...form, role: "job_seeker" })}
-                      className={`flex items-center justify-center space-x-2 py-3 px-4 rounded-lg transition-all duration-200 ${
-                        form.role === "job_seeker"
+                      onClick={() => setForm({ ...form, role: "user" })}
+                      className={`flex items-center justify-center space-x-2 py-3 px-4 rounded-lg transition-all duration-200 ${form.role === "user"
                           ? "bg-white shadow-md text-[#B260E6]"
                           : "text-gray-600 hover:text-gray-900"
-                      }`}
+                        }`}
                     >
                       <User className="h-4 w-4" />
                       <span className="font-medium">Worker</span>
                     </button>
                     <button
                       type="button"
-                      onClick={() => setForm({ ...form, role: "employer" })}
-                      className={`flex items-center justify-center space-x-2 py-3 px-4 rounded-lg transition-all duration-200 ${
-                        form.role === "employer"
+                      onClick={() => setForm({ ...form, role: "admin" })}
+                      className={`flex items-center justify-center space-x-2 py-3 px-4 rounded-lg transition-all duration-200 ${form.role === "admin"
                           ? "bg-white shadow-md text-[#B260E6]"
                           : "text-gray-600 hover:text-gray-900"
-                      }`}
+                        }`}
                     >
                       <Building className="h-4 w-4" />
                       <span className="font-medium">Employer</span>
@@ -119,33 +126,19 @@ export default function SignUpPage() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-3">
-                    <Label htmlFor="firstname" className="text-sm font-medium text-gray-700">
-                      First Name
-                    </Label>
-                    <Input
-                      id="firstname"
-                      placeholder="John"
-                      className="h-12 border-gray-200 rounded-xl focus:border-[#B260E6] focus:ring-[#B260E6] transition-colors"
-                      value={form.firstname}
-                      onChange={(e) => setForm({ ...form, firstname: e.target.value })}
-                      required
-                    />
-                  </div>
-                  <div className="space-y-3">
-                    <Label htmlFor="lastname" className="text-sm font-medium text-gray-700">
-                      Last Name
-                    </Label>
-                    <Input
-                      id="lastname"
-                      placeholder="Smith"
-                      className="h-12 border-gray-200 rounded-xl focus:border-[#B260E6] focus:ring-[#B260E6] transition-colors"
-                      value={form.lastname}
-                      onChange={(e) => setForm({ ...form, lastname: e.target.value })}
-                      required
-                    />
-                  </div>
+                {/* Single Name Field */}
+                <div className="space-y-3">
+                  <Label htmlFor="name" className="text-sm font-medium text-gray-700">
+                    Full Name
+                  </Label>
+                  <Input
+                    id="name"
+                    placeholder="John Smith"
+                    className="h-12 border-gray-200 rounded-xl focus:border-[#B260E6] focus:ring-[#B260E6] transition-colors"
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    required
+                  />
                 </div>
 
                 <div className="space-y-3">
@@ -185,7 +178,7 @@ export default function SignUpPage() {
                       {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                     </button>
                   </div>
-                  
+
                   {/* Password Strength Indicator */}
                   {form.password && (
                     <div className="space-y-2">
@@ -193,15 +186,14 @@ export default function SignUpPage() {
                         {[1, 2, 3, 4].map((index) => (
                           <div
                             key={index}
-                            className={`h-1 flex-1 rounded-full ${
-                              index <= strengthScore
+                            className={`h-1 flex-1 rounded-full ${index <= strengthScore
                                 ? strengthScore >= 3
                                   ? "bg-green-500"
                                   : strengthScore >= 2
-                                  ? "bg-yellow-500"
-                                  : "bg-red-500"
+                                    ? "bg-yellow-500"
+                                    : "bg-red-500"
                                 : "bg-gray-200"
-                            }`}
+                              }`}
                           />
                         ))}
                       </div>
@@ -236,9 +228,8 @@ export default function SignUpPage() {
                       id="confirmPassword"
                       type={showConfirmPassword ? "text" : "password"}
                       placeholder="Confirm your password"
-                      className={`h-12 border-gray-200 rounded-xl focus:border-[#B260E6] focus:ring-[#B260E6] transition-colors pr-12 ${
-                        form.confirmPassword && form.password !== form.confirmPassword ? "border-red-300 focus:border-red-500 focus:ring-red-500" : ""
-                      }`}
+                      className={`h-12 border-gray-200 rounded-xl focus:border-[#B260E6] focus:ring-[#B260E6] transition-colors pr-12 ${form.confirmPassword && form.password !== form.confirmPassword ? "border-red-300 focus:border-red-500 focus:ring-red-500" : ""
+                        }`}
                       value={form.confirmPassword}
                       onChange={(e) => setForm({ ...form, confirmPassword: e.target.value })}
                       required
@@ -257,9 +248,10 @@ export default function SignUpPage() {
                 </div>
 
                 <div className="flex items-start space-x-3">
-                  <Checkbox 
-                    id="terms" 
+                  <Checkbox
+                    id="terms"
                     className="mt-1 rounded border-gray-300 text-[#B260E6] focus:ring-[#B260E6] transition-colors"
+                    required
                   />
                   <Label htmlFor="terms" className="text-sm text-gray-600 leading-relaxed">
                     I agree to the{" "}
@@ -273,8 +265,8 @@ export default function SignUpPage() {
                   </Label>
                 </div>
 
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   className="w-full h-12 bg-gradient-to-r from-[#B260E6] to-[#ED84A5] hover:from-[#A050D6] hover:to-[#DD74A5] text-white rounded-xl text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled={loading}
                 >
@@ -302,8 +294,8 @@ export default function SignUpPage() {
               </div>
 
               <div className="text-center">
-                <Link 
-                  href="/signin" 
+                <Link
+                  href="/signin"
                   className="inline-flex items-center text-[#B260E6] hover:text-[#A050D6] font-semibold transition-colors"
                 >
                   Sign in to your account
@@ -335,7 +327,7 @@ export default function SignUpPage() {
       </div>
 
       {/* Right Side - Benefits Section */}
-      <div className="hidden lg:flex flex-1 relative bg-gradient-to-br from-[#B260E6] to-[#ED84A5]">
+      <div className="hidden lg:flex flex-1 relative bg-gradient-to-br from-[#B260E6] to-[#3b82f6]">
         <div className="absolute inset-0">
           <Image
             src="https://source.unsplash.com/1200x1600/?australian-construction,skilled-trades"
@@ -345,18 +337,18 @@ export default function SignUpPage() {
             priority
           />
         </div>
-        
+
         <div className="relative z-10 flex flex-col justify-center px-12 text-white">
           <div className="max-w-md">
             <div className="mb-8">
               <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center text-white text-2xl mb-6">
-                {form.role === "employer" ? "🏢" : "👷"}
+                {form.role === "admin" ? "🏢" : "👷"}
               </div>
               <h2 className="text-4xl font-bold mb-4 leading-tight">
-                {form.role === "employer" ? "Find Australia's Best Talent" : "Build Your Australian Career"}
+                {form.role === "admin" ? "Find Australia&apos;s Best Talent" : "Build Your Australian Career"}
               </h2>
               <p className="text-xl opacity-90 leading-relaxed">
-                {form.role === "employer" 
+                {form.role === "admin"
                   ? "Connect with skilled Australian workers and grow your business with the right talent."
                   : "Join thousands of skilled professionals finding meaningful work across Australia."
                 }
@@ -365,7 +357,7 @@ export default function SignUpPage() {
 
             {/* Dynamic Benefits Based on Role */}
             <div className="space-y-4">
-              {form.role === "job_seeker" ? (
+              {form.role === "user" ? (
                 <>
                   <div className="flex items-center space-x-4 p-4 bg-white/10 backdrop-blur-sm rounded-2xl">
                     <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
@@ -435,21 +427,21 @@ export default function SignUpPage() {
             {/* Testimonial */}
             <div className="mt-12 p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20">
               <p className="text-lg italic mb-4">
-                {form.role === "employer" 
+                {form.role === "admin"
                   ? "SkillLink helped us find qualified electricians in Melbourne within 48 hours. The platform saved us weeks of recruitment time."
                   : "Within a week of joining SkillLink, I found a stable plumbing job in Sydney. The process was seamless and professional."
                 }
               </p>
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                  {form.role === "employer" ? "👨‍💼" : "👷"}
+                  {form.role === "admin" ? "👨‍💼" : "👷"}
                 </div>
                 <div>
                   <p className="font-semibold">
-                    {form.role === "employer" ? "Sarah Johnson" : "Michael Chen"}
+                    {form.role === "admin" ? "Sarah Johnson" : "Michael Chen"}
                   </p>
                   <p className="text-sm opacity-80">
-                    {form.role === "employer" ? "Construction Manager, Melbourne" : "Plumber, Sydney"}
+                    {form.role === "admin" ? "Construction Manager, Melbourne" : "Plumber, Sydney"}
                   </p>
                 </div>
               </div>

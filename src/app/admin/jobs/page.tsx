@@ -1,30 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { useState  } from "react"
 import DataTable from "@/components/admin/DataTable";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
-import { Plus, Briefcase } from "lucide-react";
-import { motion } from "framer-motion";
+import React from "react"
+
+import { Badge } from "@/components/ui/badge"
+import {motion} from "framer-motion"
+import { Button } from "@/components/ui/button"
+import { 
+  Briefcase 
+ } from "lucide-react"
+
+import { Dialog, 
+  DialogContent, 
+  DialogDescription, 
+  DialogFooter, 
+  DialogHeader, 
+  DialogTitle, 
+  DialogTrigger, 
+ } from "@/components/ui/dialog"
+import { Input  } from "@/components/ui/input"
+import { Label  } from "@/components/ui/label"
+import { Textarea  } from "@/components/ui/textarea"
+import { Select, 
+  SelectContent, 
+  SelectItem, 
+  SelectTrigger, 
+  SelectValue, 
+ } from "@/components/ui/select"
+
+import { Plus } from "lucide-react"
+
+
 
 // Mock data
 const jobs = [

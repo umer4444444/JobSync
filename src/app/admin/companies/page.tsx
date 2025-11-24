@@ -1,10 +1,13 @@
 "use client";
 
 import DataTable from "@/components/admin/DataTable";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Building2 } from "lucide-react";
+
+
 import { motion } from "framer-motion";
+import { Badge } from "@/components/ui/badge";
+
+import { Building2  } from "lucide-react"
+
 
 // Mock data
 const companies = [

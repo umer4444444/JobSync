@@ -3,14 +3,14 @@
 import AnalyticsChart from "@/components/admin/AnalyticsChart";
 import DashboardCard from "@/components/admin/DashboardCard";
 import StatWidget from "@/components/admin/StatWidget";
-import {
-  TrendingUp,
-  Users,
-  Briefcase,
-  Building2,
-  BarChart3,
-} from "lucide-react";
 import { motion } from "framer-motion";
+import { Briefcase } from "lucide-react";
+import { TrendingUp, 
+  Users, 
+  Building2, 
+  BarChart3, 
+ } from "lucide-react"
+
 
 // Mock data for charts
 const jobsPostedData = [

@@ -1,6 +1,7 @@
 "use client"
 import Link from "next/link"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -12,9 +13,72 @@ import { useState } from "react"
 export default function SignInPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [userType, setUserType] = useState("worker") // "worker" or "employer"
+  const [isLoading, setIsLoading] = useState(false)
+  const [formData, setFormData] = useState({
+    email: "",
+    password: ""
+  })
+  const router = useRouter()
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsLoading(true)
+
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+          role: userType === "worker" ? "user" : "admin"
+        }),
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Sign in failed')
+      }
+
+      // Sign in successful
+      console.log('Sign in successful:', result)
+
+      // Store token and user data
+      if (result.token) {
+        localStorage.setItem('token', result.token)
+        localStorage.setItem('user', JSON.stringify(result.user))
+      }
+
+      // Show success message
+      alert('Signed in successfully!')
+
+      // Redirect to /user page
+      router.push('/user')
+
+    } catch (error: unknown) {
+      console.error('Sign in error:', error)
+      const errorMessage = error instanceof Error ? error.message : 'Sign in failed. Please try again.'
+      alert(errorMessage)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  // ... rest of your component remains the same
   return (
     <div className="min-h-screen bg-white flex">
+      {/* Your existing JSX code remains exactly the same */}
       {/* Left Side - Form Section */}
       <div className="flex-1 flex items-center justify-center p-8 lg:p-12">
         <div className="w-full max-w-md">
@@ -38,90 +102,111 @@ export default function SignInPage() {
             </CardHeader>
 
             <CardContent className="space-y-6 p-8">
-              {/* User Type Selection */}
-              <div className="grid grid-cols-2 gap-3 p-1 bg-gray-100 rounded-xl">
-                <button
-                  type="button"
-                  onClick={() => setUserType("worker")}
-                  className={`flex items-center justify-center space-x-2 py-3 px-4 rounded-lg transition-all duration-200 ${
-                    userType === "worker"
-                      ? "bg-white shadow-md text-[#B260E6]"
-                      : "text-gray-600 hover:text-gray-900"
-                  }`}
-                >
-                  <User className="h-4 w-4" />
-                  <span className="font-medium">Worker</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setUserType("employer")}
-                  className={`flex items-center justify-center space-x-2 py-3 px-4 rounded-lg transition-all duration-200 ${
-                    userType === "employer"
-                      ? "bg-white shadow-md text-[#B260E6]"
-                      : "text-gray-600 hover:text-gray-900"
-                  }`}
-                >
-                  <Building className="h-4 w-4" />
-                  <span className="font-medium">Employer</span>
-                </button>
-              </div>
-
-              <div className="space-y-4">
-                <div className="space-y-3">
-                  <Label htmlFor="email" className="text-sm font-medium text-gray-700">
-                    Email Address
-                  </Label>
-                  <Input 
-                    id="email" 
-                    type="email" 
-                    placeholder="Enter your email" 
-                    className="h-12 border-gray-200 rounded-xl focus:border-[#B260E6] focus:ring-[#B260E6] transition-colors"
-                  />
+              <form onSubmit={handleSubmit}>
+                {/* User Type Selection */}
+                <div className="grid grid-cols-2 gap-3 p-1 bg-gray-100 rounded-xl">
+                  <button
+                    type="button"
+                    onClick={() => setUserType("worker")}
+                    className={`flex items-center justify-center space-x-2 py-3 px-4 rounded-lg transition-all duration-200 ${userType === "worker"
+                        ? "bg-white shadow-md text-[#B260E6]"
+                        : "text-gray-600 hover:text-gray-900"
+                      }`}
+                  >
+                    <User className="h-4 w-4" />
+                    <span className="font-medium">Worker</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setUserType("employer")}
+                    className={`flex items-center justify-center space-x-2 py-3 px-4 rounded-lg transition-all duration-200 ${userType === "employer"
+                        ? "bg-white shadow-md text-[#B260E6]"
+                        : "text-gray-600 hover:text-gray-900"
+                      }`}
+                  >
+                    <Building className="h-4 w-4" />
+                    <span className="font-medium">Employer</span>
+                  </button>
                 </div>
 
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <Label htmlFor="password" className="text-sm font-medium text-gray-700">
-                      Password
+                <div className="space-y-4">
+                  <div className="space-y-3">
+                    <Label htmlFor="email" className="text-sm font-medium text-gray-700">
+                      Email Address
                     </Label>
-                    <Link href="#" className="text-sm text-[#ED84A5] hover:text-[#DD74A5] font-medium transition-colors">
-                      Forgot password?
-                    </Link>
-                  </div>
-                  <div className="relative">
-                    <Input 
-                      id="password" 
-                      type={showPassword ? "text" : "password"} 
-                      placeholder="Enter your password" 
-                      className="h-12 border-gray-200 rounded-xl focus:border-[#B260E6] focus:ring-[#B260E6] transition-colors pr-12"
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      placeholder="Enter your email"
+                      className="h-12 border-gray-200 rounded-xl focus:border-[#B260E6] focus:ring-[#B260E6] transition-colors"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
                     />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
-                    >
-                      {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                    </button>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="password" className="text-sm font-medium text-gray-700">
+                        Password
+                      </Label>
+                      <Link href="#" className="text-sm text-[#ED84A5] hover:text-[#DD74A5] font-medium transition-colors">
+                        Forgot password?
+                      </Link>
+                    </div>
+                    <div className="relative">
+                      <Input
+                        id="password"
+                        name="password"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Enter your password"
+                        className="h-12 border-gray-200 rounded-xl focus:border-[#B260E6] focus:ring-[#B260E6] transition-colors pr-12"
+                        value={formData.password}
+                        onChange={handleInputChange}
+                        required
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                      >
+                        {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      id="remember"
+                      className="rounded border-gray-300 text-[#B260E6] focus:ring-[#B260E6] transition-colors"
+                    />
+                    <Label htmlFor="remember" className="text-sm text-gray-600">
+                      Remember me for 30 days
+                    </Label>
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-2">
-                  <input 
-                    type="checkbox" 
-                    id="remember" 
-                    className="rounded border-gray-300 text-[#B260E6] focus:ring-[#B260E6] transition-colors" 
-                  />
-                  <Label htmlFor="remember" className="text-sm text-gray-600">
-                    Remember me for 30 days
-                  </Label>
-                </div>
-              </div>
-
-              <Button className="w-full h-12 bg-gradient-to-r from-[#B260E6] to-[#ED84A5] hover:from-[#A050D6] hover:to-[#DD74A5] text-white rounded-xl text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
-                <LogIn className="mr-2 h-5 w-5" />
-                Sign In
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+                <Button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full h-12 bg-gradient-to-r from-[#B260E6] to-[#ED84A5] hover:from-[#A050D6] hover:to-[#DD74A5] text-white rounded-xl text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed mt-4"
+                >
+                  {isLoading ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                      Signing In...
+                    </>
+                  ) : (
+                    <>
+                      <LogIn className="mr-2 h-5 w-5" />
+                      Sign In
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </>
+                  )}
+                </Button>
+              </form>
 
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
@@ -133,8 +218,8 @@ export default function SignInPage() {
               </div>
 
               <div className="grid grid-cols-1 gap-3">
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   className="h-12 border-gray-200 rounded-xl hover:border-gray-300 hover:bg-gray-50 transition-colors"
                 >
                   <svg className="mr-3 h-5 w-5" viewBox="0 0 24 24">
@@ -161,8 +246,8 @@ export default function SignInPage() {
 
               <div className="text-center text-sm pt-4">
                 <span className="text-gray-600">Don&apos;t have an account? </span>
-                <Link 
-                  href="/signup" 
+                <Link
+                  href="/signup"
                   className="text-[#B260E6] hover:text-[#A050D6] font-semibold transition-colors inline-flex items-center"
                 >
                   Sign up now
@@ -185,7 +270,7 @@ export default function SignInPage() {
       </div>
 
       {/* Right Side - Image Section */}
-      <div className="hidden lg:flex flex-1 relative bg-gradient-to-br from-[#B260E6] to-[#ED84A5]">
+      <div className="hidden lg:flex flex-1 relative bg-gradient-to-br from-[#B260E6] to-[#3b82f6]">
         <div className="absolute inset-0">
           <Image
             src="https://source.unsplash.com/1200x1600/?australian-worker,construction-australia"
@@ -195,7 +280,7 @@ export default function SignInPage() {
             priority
           />
         </div>
-        
+
         <div className="relative z-10 flex flex-col justify-center px-12 text-white">
           <div className="max-w-md">
             <div className="mb-8">

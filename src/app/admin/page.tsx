@@ -4,10 +4,15 @@ import StatWidget from "@/components/admin/StatWidget";
 import DashboardCard from "@/components/admin/DashboardCard";
 import DataTable from "@/components/admin/DataTable";
 import AnalyticsChart from "@/components/admin/AnalyticsChart";
-import { Briefcase, Users, Building2, CheckCircle2 } from "lucide-react";
+import {  Users,  Building2,  CheckCircle2 ,Briefcase } from "lucide-react"
+import { motion } from "framer-motion";
+import React from "react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { Button  } from "@/components/ui/button";
+
+
+
+import { ArrowRight  } from "lucide-react"
 
 // Mock data
 const recentActivity = [
@@ -62,8 +67,8 @@ const jobsData = [
   { name: "Jun", count: 67 },
 ];
 
-import { LayoutDashboard } from "lucide-react";
-import { motion } from "framer-motion";
+import { LayoutDashboard  } from "lucide-react"
+
 
 export default function AdminDashboard() {
   return (
@@ -202,7 +207,7 @@ export default function AdminDashboard() {
             {
               key: "action",
               label: "Action",
-              render: (value, row) => (
+              render: (value) => (
                 <span className="font-medium">{String(value)}</span>
               ),
             },

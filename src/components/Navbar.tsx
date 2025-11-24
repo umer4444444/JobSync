@@ -17,8 +17,7 @@ import {
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // This would come from auth context
+  const [isLoggedIn] = useState(false);
 
   return (
     <header className="w-full bg-white/95 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50 shadow-sm">
@@ -39,7 +38,7 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - MOVED AUTH BUTTONS HERE */}
           <nav className="hidden lg:flex items-center space-x-1">
             {[
               { href: "/", label: "Home", icon: null },
@@ -69,6 +68,24 @@ export default function Navbar() {
                 <span>{item.label}</span>
               </Link>
             ))}
+
+            {/* AUTH BUTTONS MOVED TO NAV SECTION */}
+            {!isLoggedIn && (
+              <div className="flex items-center space-x-2 ml-4 pl-4 border-l border-gray-200">
+                <Link
+                  href="/signin"
+                  className="px-4 py-2 text-[#B260E6] hover:text-[#A050D6] font-semibold transition-colors rounded-xl hover:bg-gray-100"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/signup"
+                  className="px-4 py-2 bg-gradient-to-r from-[#B260E6] to-[#ED84A5] hover:from-[#A050D6] hover:to-[#DD74A5] text-white font-semibold transition-all shadow-md hover:shadow-lg rounded-xl"
+                >
+                  Sign Up
+                </Link>
+              </div>
+            )}
           </nav>
 
           {/* Search Bar - Desktop */}
@@ -83,7 +100,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Desktop Auth Buttons / User Menu */}
+          {/* Desktop User Menu - ONLY SHOW WHEN LOGGED IN */}
           <div className="hidden lg:flex items-center space-x-3">
             {isLoggedIn ? (
               <>
@@ -123,21 +140,8 @@ export default function Navbar() {
                 </div>
               </>
             ) : (
-              <>
-                <Link href="/auth/login">
-                  <Button
-                    variant="ghost"
-                    className="text-gray-700 hover:text-[#B260E6] hover:bg-gray-100 font-medium px-6 py-2 rounded-xl transition-all cursor-pointer"
-                  >
-                    Sign In
-                  </Button>
-                </Link>
-                <Link href="/auth/register">
-                  <Button className="cursor-pointer bg-gradient-to-r from-[#B260E6] to-[#ED84A5] hover:from-[#A050D6] hover:to-[#DD74A5] text-white font-medium px-6 py-2 rounded-xl shadow-lg hover:shadow-xl transition-all">
-                    Sign Up Free
-                  </Button>
-                </Link>
-              </>
+              // EMPTY - Auth buttons are now in the nav section
+              null
             )}
           </div>
 
@@ -212,46 +216,42 @@ export default function Navbar() {
               </Link>
             ))}
 
-            {/* Mobile Auth Buttons */}
+            {/* Mobile Auth Buttons - SIMPLIFIED */}
             <div className="pt-4 border-t border-gray-200 space-y-3">
               {isLoggedIn ? (
                 <>
                   <Link href="/profile" onClick={() => setIsMenuOpen(false)}>
-                    <Button
-                      variant="ghost"
-                      className="w-full justify-start space-x-3 text-gray-700"
-                    >
+                    <div className="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-[#B260E6] hover:bg-gray-50 rounded-xl font-medium transition-all duration-200 w-full">
                       <User className="h-5 w-5" />
                       <span>My Profile</span>
-                    </Button>
+                    </div>
                   </Link>
                   <Link href="/saved" onClick={() => setIsMenuOpen(false)}>
-                    <Button
-                      variant="ghost"
-                      className="w-full justify-start space-x-3 text-gray-700"
-                    >
+                    <div className="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-[#B260E6] hover:bg-gray-50 rounded-xl font-medium transition-all duration-200 w-full">
                       <Bookmark className="h-5 w-5" />
                       <span>Saved Jobs</span>
-                    </Button>
+                    </div>
                   </Link>
                 </>
               ) : (
                 <>
-                  <Link href="/auth/login" onClick={() => setIsMenuOpen(false)}>
-                    <Button
-                      variant="outline"
-                      className="w-full justify-center border-gray-300 text-gray-700"
-                    >
-                      Sign In
-                    </Button>
-                  </Link>
-                  <Link
-                    href="/auth/register"
+                  <Link 
+                    href="/auth/login" 
                     onClick={() => setIsMenuOpen(false)}
+                    className="block w-full"
                   >
-                    <Button className="w-full justify-center bg-gradient-to-r from-[#B260E6] to-[#ED84A5] hover:from-[#A050D6] hover:to-[#DD74A5] text-white">
+                    <div className="w-full px-4 py-3 text-center text-gray-700 border border-gray-300 rounded-xl font-medium hover:bg-gray-50 transition-colors">
+                      Sign In
+                    </div>
+                  </Link>
+                  <Link 
+                    href="/auth/register" 
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block w-full"
+                  >
+                    <div className="w-full px-4 py-3 text-center bg-gradient-to-r from-[#B260E6] to-[#ED84A5] hover:from-[#A050D6] hover:to-[#DD74A5] text-white rounded-xl font-medium transition-all">
                       Sign Up Free
-                    </Button>
+                    </div>
                   </Link>
                 </>
               )}

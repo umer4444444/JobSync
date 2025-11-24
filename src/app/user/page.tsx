@@ -4,11 +4,16 @@ import StatWidget from "@/components/admin/StatWidget";
 import DashboardCard from "@/components/admin/DashboardCard";
 import DataTable from "@/components/admin/DataTable";
 import AnalyticsChart from "@/components/admin/AnalyticsChart";
-import { FileText, CheckCircle, Bookmark, UserCheck } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { FileText,  Bookmark,  UserCheck  } from "lucide-react"
+import { CheckCircle } from "lucide-react"
 import { motion } from "framer-motion";
+import React from "react";
+import { Badge } from "@/components/ui/badge";
+import { Button  } from "@/components/ui/button";
+
+
+import { ArrowRight  } from "lucide-react"
+
 
 // Mock data
 const recentActivity = [
@@ -155,7 +160,7 @@ export default function UserDashboard() {
             {
               key: "action",
               label: "Action",
-              render: (value, row) => (
+              render: (value) => (
                 <span className="font-medium">{String(value)}</span>
               ),
             },

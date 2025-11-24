@@ -1,29 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useState  } from "react"
 import DataTable from "@/components/admin/DataTable";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
-import { Plus, UserPlus, Users } from "lucide-react";
-import { motion } from "framer-motion";
+import React from "react"
+
+import { Badge } from "@/components/ui/badge"
+import {motion} from "framer-motion"
+import { Button } from "@/components/ui/button"
+import { Dialog, 
+  DialogContent, 
+  DialogDescription, 
+  DialogFooter, 
+  DialogHeader, 
+  DialogTitle, 
+  DialogTrigger, 
+ } from "@/components/ui/dialog"
+import { Input  } from "@/components/ui/input"
+import { Label  } from "@/components/ui/label"
+import { Select, 
+  SelectContent, 
+  SelectItem, 
+  SelectTrigger, 
+  SelectValue, 
+ } from "@/components/ui/select"
+
+import { Plus,  UserPlus,  Users  } from "lucide-react"
+
 
 // Mock data
 const users = [

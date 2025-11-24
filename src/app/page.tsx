@@ -1,26 +1,24 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { Button } from "@/components/ui/button";
-import AutoSlider from "@/components/ui/AutoSlider";
 
-import { Card, CardContent } from "@/components/ui/card";
+import AutoSlider from "@/components/ui/AutoSlider";
+import { Button } from "@/components/ui/button";
+import { CheckCircle, Shield } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image";
 import {
   MapPin,
   Clock,
   DollarSign,
-  CheckCircle,
   Star,
   ArrowRight,
-  Shield,
   FileCheck,
   Bot,
   Cloud,
   Users,
-  Building,
   BadgeCheck,
-} from "lucide-react";
+} from "lucide-react"
 
 export default function Home() {
   const stats = [
@@ -43,50 +41,44 @@ export default function Home() {
     },
     {
       name: "Energy",
-      image: "/images/energy.png",
+      image: "/images/energy 1.png",
       verified: true,
     },
     {
       name: "Logistics",
-      image: "/images/logistic-company.png",
+      image: "/images/logistics 1.png",
       verified: true,
     },
     {
       name: "Healthcare",
-      image: "/images/health.png",
+      image: "/images/healthcare 1.png",
       verified: true,
     },
     {
       name: "Mining",
-      image: "/images/mining.png",
+      image: "/images/mining 1.png",
       verified: true,
     },
   ];
 
   const features = [
     {
-      icon: <FileCheck className="h-8 w-8" />,
+      icon: <FileCheck className="h-10 w-10" />,
       title: "Verified Credentials",
       description:
         "Every document is validated for authenticity and expiry with trusted verification partners",
     },
     {
-      icon: <Bot className="h-8 w-8" />,
+      icon: <Bot className="h-10 w-10" />,
       title: "AI Career Assistant",
       description:
         "Generate professional CVs, understand contracts, and get real-time job suggestions",
     },
     {
-      icon: <Cloud className="h-8 w-8" />,
-      title: "User-Owned Data",
+      icon: <Cloud className="h-10 w-10" />,
+      title: "User Owned Data",
       description:
         "Your documents stay in your cloud (Google Drive, OneDrive, Box) - we never take ownership",
-    },
-    {
-      icon: <Building className="h-8 w-8" />,
-      title: "White-Label Flexibility",
-      description:
-        "Agencies and employers can deploy their own branded version of the platform",
     },
   ];
 
@@ -119,7 +111,7 @@ export default function Home() {
       image: "/images/construction.png",
     },
     {
-      title: "Heavy Vehicle Driver – Logistics",
+      title: "Heavy Vehicle Driver  Logistics",
       company: "TransRoad Logistics",
       location: "Perth, WA",
       salary: "$65,000 - $80,000/year",
@@ -137,7 +129,7 @@ export default function Home() {
       image: "/images/painter.png",
     },
     {
-      title: "Chef de Partie – Hotel Kitchen",
+      title: "Chef de Partie  Hotel Kitchen",
       company: "GrandHarbour Hotel & Resorts",
       location: "Sydney, NSW",
       salary: "$60,000 - $75,000/year",
@@ -146,17 +138,25 @@ export default function Home() {
       image: "/images/chef.png",
     },
   ];
+
   return (
     <main className="min-h-screen bg-white">
-      {/* Enhanced Hero Section with Verification Focus */}
+      {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background with Gradient Overlay */}
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#B260E6]/90 to-[#ED84A5]/80" />
-        </div>
+        <video
+          className="absolute inset-0 w-full h-full object-cover z-0"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src="/images/hero-background.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
 
-        {/* Hero Content */}
-        <div className="relative z-10 max-w-6xl mx-auto p-6 text-center text-white">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#B260E6]/70 to-[#3b82f6]/60 z-10" />
+
+        <div className="relative z-20 max-w-6xl mx-auto p-6 text-center text-white">
           <div className="mb-8">
             <div className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-sm rounded-full px-6 py-3 mb-6">
               <Shield className="h-5 w-5" />
@@ -175,8 +175,8 @@ export default function Home() {
 
           <p className="text-xl md:text-2xl mb-8 max-w-4xl mx-auto leading-relaxed">
             <strong>JobSync</strong> is transforming how Australians work,
-            verify, and connect. It&apos;s more than a job site — it&apos;s a
-            secure ecosystem that brings <strong>verified candidates</strong>,{" "}
+            verify, and connect. It&apos;s more than a job site—it&apos;s a secure
+            ecosystem that brings <strong>verified candidates</strong>,{" "}
             <strong>certified qualifications</strong>, and{" "}
             <strong>trusted employers</strong> together on one powerful
             platform.
@@ -196,16 +196,13 @@ export default function Home() {
             Built in Australia. Trusted globally. Powered by verification.
           </p>
 
-          {/* Stats Bar */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto bg-white/20 backdrop-blur-sm rounded-2xl p-8 border border-white/30 mt-12">
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
                 <div className="text-2xl md:text-3xl font-bold mb-2">
                   {stat.number}
                 </div>
-                <div className="text-sm md:text-base opacity-90">
-                  {stat.label}
-                </div>
+                <div className="text-sm md:text-base opacity-90">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -265,12 +262,12 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Not Just a Job Platform — A Centralised{" "}
+              Not Just a Job Platform  A Centralised{" "}
               <span className="text-[#B260E6]">Verification Ecosystem</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Today&apos;s workforce deserves more than job listings. It
-              deserves trust, proof, and portability. JobSync transforms how
+              Today&apos;s workforce deserves more than job listings. It deserves
+              trust, proof, and portability. JobSync transforms how
               professionals manage their qualifications and how employers verify
               them.
             </p>
@@ -279,8 +276,8 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
-                Where skills meet validation — a digital passport that proves
-                your readiness for any opportunity, anywhere.
+                Where skills meet validation a digital passport that proves your
+                readiness for any opportunity, anywhere.
               </h3>
               <div className="space-y-4">
                 <div className="flex items-start space-x-3">
@@ -302,14 +299,14 @@ export default function Home() {
                       For employers
                     </h4>
                     <p className="text-gray-600">
-                      Access a verified, compliant talent pool — instantly.
+                      Access a verified, compliant talent pool instantly.
                     </p>
                   </div>
                 </div>
               </div>
             </div>
             <div className="bg-gradient-to-br from-[#B260E6] to-[#ED84A5] rounded-3xl p-8 text-white text-center">
-              <div className="text-6xl mb-4">🛡️</div>
+              <Shield className="text-6xl mx-auto mb-4" />
               <h3 className="text-2xl font-bold mb-4">
                 Your Career. Verified. Portable. Trusted.
               </h3>
@@ -324,6 +321,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+
+
 
       {/* How It Works Section */}
       <section className="py-24 bg-gradient-to-br from-gray-50 to-white">
@@ -347,7 +347,7 @@ export default function Home() {
                 Create Your Profile
               </h3>
               <p className="text-gray-600">
-                Build your verified career identity — complete with education,
+                Build your verified career identity complete with education,
                 certificates, and experience.
               </p>
             </Card>
@@ -390,12 +390,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why JobSync Is Different */}
+      <section className="py-24 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+
+
+
+
+            {/* For Individuals Section */}
+          </div>
+        </div>
+      </section>
       <section className="py-24 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Beyond Recruitment — It&apos;s a{" "}
+              Beyond Recruitment It&apos;s a{" "}
               <span className="text-[#B260E6]">Workforce Revolution</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -405,7 +415,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
             {features.map((feature, index) => (
               <Card
                 key={index}
@@ -426,93 +436,49 @@ export default function Home() {
         </div>
       </section>
 
-      {/* For Individuals & Employers Sections */}
-      <section className="py-24 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* For Individuals */}
-            <Card className="border-0 shadow-lg">
-              <CardContent className="p-8">
-                <div className="text-center mb-8">
-                  <Users className="h-12 w-12 text-[#B260E6] mx-auto mb-4" />
-                  <h3 className="text-3xl font-bold text-gray-900 mb-4">
-                    For Individuals
-                  </h3>
-                  <p className="text-xl text-gray-600">
-                    Take Control of Your Career — One Verified Step at a Time
-                  </p>
-                </div>
+      {/* For Individuals Section - separate, full-width section */}
+      <section className="py-24 bg-gray-50 flex justify-center">
+        <Card className="w-full max-w-lg border-0 shadow-lg">
+          <CardContent className="p-8">
+            <div className="text-center mb-8">
+              <Users className="h-12 w-12 text-[#B260E6] mx-auto mb-4" />
+              <h3 className="text-3xl font-bold text-gray-900 mb-4">
+                For Individuals
+              </h3>
+              <p className="text-xl text-gray-600">
+                Take Control of Your Career One Verified Step at a Time
+              </p>
+            </div>
 
-                <div className="space-y-4 mb-8">
-                  {[
-                    "Store, verify, and renew your qualifications automatically",
-                    "Build a professional CV guided by AI — no writing needed",
-                    "Access industry-matched job listings across multiple platforms",
-                    "Gain recognition through verified digital badges",
-                  ].map((item, index) => (
-                    <div key={index} className="flex items-center space-x-3">
-                      <CheckCircle className="h-5 w-5 text-[#ED84A5] flex-shrink-0" />
-                      <span className="text-gray-700">{item}</span>
-                    </div>
-                  ))}
+            <div className="space-y-4 mb-8">
+              {[
+                "Store, verify, and renew your qualifications automatically",
+                "Build a professional CV guided by AI — no writing needed",
+                "Access industry-matched job listings across multiple platforms",
+                "Gain recognition through verified digital badges",
+              ].map((item, index) => (
+                <div key={index} className="flex items-center space-x-3">
+                  <CheckCircle className="h-5 w-5 text-[#ED84A5] flex-shrink-0" />
+                  <span className="text-gray-700">{item}</span>
                 </div>
+              ))}
+            </div>
 
-                <div className="text-center p-4 bg-gradient-to-r from-[#B260E6]/10 to-[#ED84A5]/10 rounded-xl mb-6">
-                  <p className="text-lg font-semibold text-gray-900">
-                    Your career. Verified. Portable. Trusted.
-                  </p>
-                </div>
+            <div className="text-center p-4 bg-gradient-to-r from-[#B260E6]/10 to-[#ED84A5]/10 rounded-xl mb-6">
+              <p className="text-lg font-semibold text-gray-900">
+                Your career. Verified. Portable. Trusted.
+              </p>
+            </div>
 
-                <Button className="w-full bg-gradient-to-r from-[#B260E6] to-[#ED84A5] hover:from-[#A050D6] hover:to-[#DD74A5] text-white py-4 text-lg">
-                  Create Your Verified Profile
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* For Employers & Agencies */}
-            <Card className="border-0 shadow-lg">
-              <CardContent className="p-8">
-                <div className="text-center mb-8">
-                  <Building className="h-12 w-12 text-[#ED84A5] mx-auto mb-4" />
-                  <h3 className="text-3xl font-bold text-gray-900 mb-4">
-                    For Employers & Agencies
-                  </h3>
-                  <p className="text-xl text-gray-600">
-                    Hire Faster. Stay Compliant. Build Trust.
-                  </p>
-                </div>
-
-                <div className="space-y-4 mb-8">
-                  {[
-                    "Access an ecosystem of pre-verified, job-ready candidates",
-                    "Automated credential validation and expiry alerts",
-                    "Digital onboarding and compliance tracking",
-                    "Branded white-label platforms for agencies",
-                    "Seamless integration with existing HR and recruitment systems",
-                  ].map((item, index) => (
-                    <div key={index} className="flex items-center space-x-3">
-                      <CheckCircle className="h-5 w-5 text-[#B260E6] flex-shrink-0" />
-                      <span className="text-gray-700">{item}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="space-y-3">
-                  <Button className="w-full bg-gradient-to-r from-[#B260E6]/10 to-[#ED84A5]/10 text-black py-6 text-lg hover:bg-gradient-to-r from-[#B260E6]/10 to-[#ED84A5]/10">
-                    Request Demo
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="w-full bg-gradient-to-r from-[#B260E6] to-[#ED84A5] hover:from-[#A050D6] hover:to-[#DD74A5] text-white hover:text-white text-lg"
-                  >
-                    Book a Partner Call
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
+            <Button className="w-full bg-gradient-to-r from-[#B260E6] to-[#ED84A5] hover:from-[#A050D6] hover:to-[#DD74A5] text-white py-4 text-lg">
+              Create Your Verified Profile
+            </Button>
+          </CardContent>
+        </Card>
       </section>
+
+
+
 
       {/* Industries We Empower */}
       <section className="py-24 bg-white">
@@ -522,7 +488,7 @@ export default function Home() {
               Industries We <span className="text-[#ED84A5]">Empower</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              JobSync is built for compliance-driven industries where trust and
+              JobSync is built for compliance driven industries where trust and
               verification are critical.
             </p>
           </div>
@@ -536,7 +502,7 @@ export default function Home() {
                  transition-transform duration-300 hover:scale-105"
                 style={{
                   background:
-                    "linear-gradient(135deg, #B260E6 0%, #ED84A5 100%)",
+                    "linear-gradient(135deg, #B260E6 0%, #3b82f6 100%)",
                 }}
               >
                 <div className="flex flex-col items-center justify-center text-center p-6">
@@ -569,7 +535,7 @@ export default function Home() {
           <div className="text-center mt-8">
             <p className="text-gray-600 max-w-2xl mx-auto">
               Whether it&apos;s FIFO mining, hospital staffing, or logistics
-              operations — we help organisations verify, hire, and mobilise
+              operations we help organisations verify, hire, and mobilise
               talent with confidence.
             </p>
           </div>
@@ -729,21 +695,22 @@ export default function Home() {
           </h2>
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
             Your personal and professional data always belongs to you. JobSync
-            integrates securely with your existing cloud storage — without ever
+            integrates securely with your existing cloud storage without ever
             taking ownership of your documents.
           </p>
 
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             {[
-              { title: "End-to-end encryption", icon: "🔒" },
-              { title: "GDPR & OAIC compliant", icon: "📜" },
-              { title: "Role-based access control", icon: "👤" },
+              { title: "End-to-end encryption", icon: <Shield className="h-8 w-8 text-[#B260E6]" /> },
+              { title: "GDPR & OAIC compliant", icon: <FileCheck className="h-8 w-8 text-[#B260E6]" /> },
+              { title: "Role-based access control", icon: <Users className="h-8 w-8 text-[#B260E6]" /> },
             ].map((item, index) => (
               <div key={index} className="bg-white rounded-2xl p-6 shadow-lg">
-                <div className="text-2xl mb-3">{item.icon}</div>
+                <div className="mb-3">{item.icon}</div>
                 <h4 className="font-semibold text-gray-900">{item.title}</h4>
               </div>
             ))}
+
           </div>
 
           <Button className="bg-gradient-to-r from-[#B260E6] to-[#ED84A5] hover:from-[#A050D6] hover:to-[#DD74A5] text-white px-8 py-4 text-lg">
@@ -755,7 +722,7 @@ export default function Home() {
       {/* Final CTA Section */}
       <section className="relative py-28 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#B260E6]/90 to-[#ED84A5]/90" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#B260E6]/90 to-[#3b82f6]/90" />
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-6 text-center text-white">
@@ -779,13 +746,13 @@ export default function Home() {
               <CheckCircle className="h-5 w-5 mr-2" />
               No document ownership
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center">f
               <CheckCircle className="h-5 w-5 mr-2" />
               Instant verification
             </div>
             <div className="flex items-center">
               <CheckCircle className="h-5 w-5 mr-2" />
-              White-label solutions
+              White label solutions
             </div>
           </div>
         </div>

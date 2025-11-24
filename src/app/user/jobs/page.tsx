@@ -1,29 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useState  } from "react"
 import DashboardCard from "@/components/admin/DashboardCard";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Briefcase,
-  Search,
-  MapPin,
-  DollarSign,
-  Bookmark,
-  ArrowRight,
-  Filter,
-} from "lucide-react";
-import { motion } from "framer-motion";
+import { Card,  CardContent  } from "@/components/ui/card"
+import React from "react"
+import { Badge } from "@/components/ui/badge"
+import {motion} from "framer-motion"
+import { Button } from "@/components/ui/button"
+
+import { Briefcase } from "lucide-react";
+
+import { Input  } from "@/components/ui/input"
+import { Label  } from "@/components/ui/label"
+
+import { Select, 
+  SelectContent, 
+  SelectItem, 
+  SelectTrigger, 
+  SelectValue, 
+ } from "@/components/ui/select"
+import { 
+  Search, 
+  MapPin, 
+  DollarSign, 
+  Bookmark, 
+  ArrowRight, 
+  Filter, 
+ } from "lucide-react"
+
 
 // Mock jobs data
 const jobsData = [

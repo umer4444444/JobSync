@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist,  Geist_Mono  } from "next/font/google"
 import "./globals.css";
 import ConditionalNavbar from "@/components/ConditionalNavbar";
 import ConditionalFooter from "@/components/ConditionalFooter";
@@ -49,7 +49,7 @@ export default function RootLayout({
             bottom: 20,
             right: 20,
             width: 420,
-            height: 550,
+            height: 850,
             border: "none",
             borderRadius: 20,
             overflow: "hidden",

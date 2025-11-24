@@ -2,17 +2,18 @@
 
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card} from "@/components/ui/card";
-import { 
-  Wrench, 
-  Hammer, 
-  Plug, 
-  Paintbrush, 
-  Truck, 
-  Utensils, 
-  Users, 
-  Scissors, 
-  Shield, 
+import { Card } from "@/components/ui/card";
+
+import { Shield } from "lucide-react";
+import {
+  Wrench,
+  Hammer,
+  Plug,
+  Paintbrush,
+  Truck,
+  Utensils,
+  Users,
+  Scissors,
   Cog,
   Search,
   MapPin,
@@ -20,7 +21,7 @@ import {
   Building,
   Clock,
   ArrowRight
-} from "lucide-react";
+} from "lucide-react"
 import Image from "next/image";
 
 export default function JobsPage() {
@@ -47,104 +48,104 @@ export default function JobsPage() {
   const locations = ["All", "Sydney, NSW", "Melbourne, VIC", "Brisbane, QLD", "Perth, WA", "Adelaide, SA", "Canberra, ACT"];
 
   // Sample skilled jobs data with Australian context
- const jobs = [
-  {
-    id: 1,
-    title: "Experienced Plumber",
-    company: "AquaFlow Services",
-    location: "Sydney, NSW",
-    type: "Full-time",
-    salary: "$75,000 - $95,000",
-    posted: "2 hours ago",
-    description:
-      "Install and repair water supply lines, drainage systems, and related fixtures for residential and commercial properties.",
-    emoji: "🔧",
-    category: "Plumbing & Fittings",
-    image: "/images/plumber.png",
-    companyLogo: "/images/plumber.png", // optional — replace with your own logo if available
-    featured: true,
-  },
-  {
-    id: 2,
-    title: "Commercial Electrician",
-    company: "BrightVolt Ltd.",
-    location: "Melbourne, VIC",
-    type: "Full-time",
-    salary: "$85,000 - $110,000",
-    posted: "6 hours ago",
-    description:
-      "Maintain and install commercial wiring, lighting, and electrical systems for office buildings and retail spaces.",
-    emoji: "💡",
-    category: "Electrical & Wiring",
-    image: "/images/electrician.png",
-    companyLogo: "/images/electrician.png",
-    featured: true,
-  },
-  {
-    id: 3,
-    title: "Construction Site Manager",
-    company: "UrbanBuild Co.",
-    location: "Brisbane, QLD",
-    type: "Full-time",
-    salary: "$120,000 - $150,000",
-    posted: "1 day ago",
-    description:
-      "Lead construction teams and manage residential and commercial building projects from start to finish.",
-    emoji: "🏗️",
-    category: "Construction & Masonry",
-    image: "/images/construction.png",
-    companyLogo: "/images/construction.png",
-    featured: false,
-  },
-  {
-    id: 4,
-    title: "Head Chef (Modern Australian)",
-    company: "The Grand Dine",
-    location: "Sydney, NSW",
-    type: "Full-time",
-    salary: "$75,000 - $95,000",
-    posted: "2 days ago",
-    description:
-      "Lead kitchen operations and create innovative Modern Australian cuisine in a premium waterfront restaurant.",
-    emoji: "🍳",
-    category: "Culinary & Kitchen Staff",
-    image: "/images/chef.png",
-    companyLogo: "/images/chef.png",
-    featured: false,
-  },
-  {
-    id: 5,
-    title: "Delivery Driver",
-    company: "Speedy Logistics",
-    location: "Melbourne, VIC",
-    type: "Full-time",
-    salary: "$65,000 - $80,000",
-    posted: "3 days ago",
-    description:
-      "Deliver goods and parcels safely within assigned routes across metropolitan Melbourne.",
-    emoji: "🚚",
-    category: "Driving & Logistics",
-    image: "/images/driver.png",
-    companyLogo: "/images/driver.png",
-    featured: false,
-  },
-  {
-    id: 6,
-    title: "Residential Painter",
-    company: "Premium Painters",
-    location: "Perth, WA",
-    type: "Contract",
-    salary: "$70,000 - $90,000",
-    posted: "4 days ago",
-    description:
-      "High-quality residential painting services for new builds and renovations across Perth.",
-    emoji: "🎨",
-    category: "Painting & Finishing",
-    image: "/images/painter.png",
-    companyLogo: "/images/painter.png",
-    featured: false,
-  },
-];
+  const jobs = [
+    {
+      id: 1,
+      title: "Experienced Plumber",
+      company: "AquaFlow Services",
+      location: "Sydney, NSW",
+      type: "Full-time",
+      salary: "$75,000 - $95,000",
+      posted: "2 hours ago",
+      description:
+        "Install and repair water supply lines, drainage systems, and related fixtures for residential and commercial properties.",
+      emoji: "🔧",
+      category: "Plumbing & Fittings",
+      image: "/images/plumber.png",
+      companyLogo: "/images/plumber.png", // optional — replace with your own logo if available
+      featured: true,
+    },
+    {
+      id: 2,
+      title: "Commercial Electrician",
+      company: "BrightVolt Ltd.",
+      location: "Melbourne, VIC",
+      type: "Full-time",
+      salary: "$85,000 - $110,000",
+      posted: "6 hours ago",
+      description:
+        "Maintain and install commercial wiring, lighting, and electrical systems for office buildings and retail spaces.",
+      emoji: "💡",
+      category: "Electrical & Wiring",
+      image: "/images/electrician.png",
+      companyLogo: "/images/electrician.png",
+      featured: true,
+    },
+    {
+      id: 3,
+      title: "Construction Site Manager",
+      company: "UrbanBuild Co.",
+      location: "Brisbane, QLD",
+      type: "Full-time",
+      salary: "$120,000 - $150,000",
+      posted: "1 day ago",
+      description:
+        "Lead construction teams and manage residential and commercial building projects from start to finish.",
+      emoji: "🏗️",
+      category: "Construction & Masonry",
+      image: "/images/construction.png",
+      companyLogo: "/images/construction.png",
+      featured: false,
+    },
+    {
+      id: 4,
+      title: "Head Chef (Modern Australian)",
+      company: "The Grand Dine",
+      location: "Sydney, NSW",
+      type: "Full-time",
+      salary: "$75,000 - $95,000",
+      posted: "2 days ago",
+      description:
+        "Lead kitchen operations and create innovative Modern Australian cuisine in a premium waterfront restaurant.",
+      emoji: "🍳",
+      category: "Culinary & Kitchen Staff",
+      image: "/images/chef.png",
+      companyLogo: "/images/chef.png",
+      featured: false,
+    },
+    {
+      id: 5,
+      title: "Delivery Driver",
+      company: "Speedy Logistics",
+      location: "Melbourne, VIC",
+      type: "Full-time",
+      salary: "$65,000 - $80,000",
+      posted: "3 days ago",
+      description:
+        "Deliver goods and parcels safely within assigned routes across metropolitan Melbourne.",
+      emoji: "🚚",
+      category: "Driving & Logistics",
+      image: "/images/driver.png",
+      companyLogo: "/images/driver.png",
+      featured: false,
+    },
+    {
+      id: 6,
+      title: "Residential Painter",
+      company: "Premium Painters",
+      location: "Perth, WA",
+      type: "Contract",
+      salary: "$70,000 - $90,000",
+      posted: "4 days ago",
+      description:
+        "High-quality residential painting services for new builds and renovations across Perth.",
+      emoji: "🎨",
+      category: "Painting & Finishing",
+      image: "/images/painter.png",
+      companyLogo: "/images/painter.png",
+      featured: false,
+    },
+  ];
 
 
   // Filtering jobs
@@ -172,9 +173,9 @@ export default function JobsPage() {
             className="object-cover"
             priority
           /> */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#B260E6]/90 to-[#ED84A5]/90" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#B260E6]/90 to-[#3b82f6]/90" />
         </div>
-        
+
         <div className="relative z-10 max-w-6xl mx-auto px-6 text-center text-white">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
             Find Your Dream Job in{" "}
@@ -283,11 +284,11 @@ export default function JobsPage() {
                 {selectedLocation !== "All" && ` near ${selectedLocation}`}
               </h2>
               <p className="text-gray-600 text-lg">
-  Browse the latest opportunities from Australia&apos;s top employers
-</p>
+                Browse the latest opportunities from Australia&apos;s top employers
+              </p>
 
             </div>
-            
+
             <div className="flex items-center space-x-4 mt-4 md:mt-0">
               <span className="text-gray-600 text-sm">Sort by:</span>
               <select className="border border-gray-200 rounded-lg px-4 py-2 text-sm focus:ring-2 focus:ring-[#B260E6] outline-none">
@@ -318,7 +319,7 @@ export default function JobsPage() {
                         </div>
                       )}
                     </div>
-                    
+
                     {/* Job Content */}
                     <div className="md:w-3/4 p-8">
                       <div className="flex flex-col md:flex-row md:items-start justify-between mb-4">
@@ -370,7 +371,7 @@ export default function JobsPage() {
                             {job.posted}
                           </div>
                         </div>
-                        
+
                         <Button className="bg-gradient-to-r from-[#B260E6] to-[#ED84A5] hover:from-[#A050D6] hover:to-[#DD74A5] text-white rounded-full px-8">
                           Apply Now
                           <ArrowRight className="ml-2 h-4 w-4" />
@@ -387,7 +388,7 @@ export default function JobsPage() {
                 <p className="text-gray-600 mb-8 max-w-md mx-auto">
                   Try adjusting your search filters or browse all categories below
                 </p>
-                <Button 
+                <Button
                   onClick={() => {
                     setSearchTerm("");
                     setSelectedCategory("All");
@@ -412,7 +413,7 @@ export default function JobsPage() {
               Explore by <span className="text-[#B260E6]">Category</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Browse opportunities in Australia's most in-demand skilled trades and professions
+              Browse opportunities in Australia&apos;s most in-demand skilled trades and professions
             </p>
           </div>
 
@@ -459,7 +460,7 @@ export default function JobsPage() {
       </section> */}
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-[#B260E6] to-[#ED84A5] text-white">
+      <section className="py-20 bg-gradient-to-r from-[#B260E6] to-[#3b82f6] text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Can&apos;t Find What You&apos;re Looking For?
